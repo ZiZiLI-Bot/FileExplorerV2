@@ -1,0 +1,105 @@
+﻿<Window x:Class="FileExplorerV2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileExplorerV2"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="File Explorer" Height="600" Width="1025">
+    <Grid>
+        <StackPanel Margin="10 0" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                <Button Name="BtnBack" Height="40" Content="Quay lại" Click="BtnBack_Click" />
+                <ComboBox Margin="20 0" Width="70" Height="40" Name="LayoutListDevices" FontSize="18" SelectedIndex="0" SelectionChanged="LayoutListDevices_SelectionChanged" VerticalAlignment="Top" />
+                <TextBox Name="FilePathTextBox" FontSize="18" Width="700" Height="40" />
+                <Button Name="BtnGo" Click="BtnGo_Click" Content="Đi" Width="80" Margin="10 0" Height="40" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="0 15">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                    <materialDesign:DialogHost>
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Width="350" Height="200">
+                                <TextBlock FontSize="18" Margin="10" TextAlignment="Center" FontWeight="Bold">Tạo mới folder</TextBlock>
+                                <StackPanel Margin="0 10">
+                                    <TextBlock Margin="10" FontSize="16">Nhập tên folder:</TextBlock>
+                                    <TextBox Name="NewFolderNameTextBox" FontSize="18" Margin="10 0" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0 10" HorizontalAlignment="Right">
+                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0">Đóng</Button>
+                                    <Button Name="newFolderAccset" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0" Click="NewFolderAccset_Click">Chấp nhận</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent>
+                        <Button Name="newFolder" Content="Thư mục mới" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"/>
+                    </materialDesign:DialogHost>
+                    <materialDesign:DialogHost>
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Width="350" Height="200">
+                                <TextBlock FontSize="18" Margin="10" TextAlignment="Center" FontWeight="Bold">Tạo mới file</TextBlock>
+                                <StackPanel Margin="0 10">
+                                    <TextBlock Margin="10" FontSize="16">Nhập tên file:</TextBlock>
+                                    <TextBox Name="NewFileNameTextBox" FontSize="18" Margin="10 0" />
+                                    <TextBlock Margin="10 1">Vui lòng nhập đúng định dạng file (vd: file.txt)</TextBlock>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0 5" HorizontalAlignment="Right">
+                                    <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0">Đóng</Button>
+                                    <Button Name="newFileAccset" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0" Click="NewFileAccset_Click">Chấp nhận</Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent>
+                        <Button Margin="10 0" Name="newFile" Content="Tập tin mới" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"/>
+                    </materialDesign:DialogHost>
+                </StackPanel>
+                <materialDesign:DialogHost>
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel Width="350" Height="170">
+                            <TextBlock FontSize="18" Margin="10" TextAlignment="Center" FontWeight="Bold">Xác nhận xóa file</TextBlock>
+                            <StackPanel Margin="0 10">
+                                <TextBlock Margin="10" FontSize="18" FontWeight="Bold" Name="AccsetDeleteTitle"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 5" HorizontalAlignment="Right">
+                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0">Đóng</Button>
+                                <Button Name="AccsetDelete" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0" Click="DeleteFile_Click">Chấp nhận</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <Button Margin="527 0 10 0" Name="OpenDeleteFile" Content="Xóa tập tin/file" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Click="OpenDeleteFile_Click"  />
+                </materialDesign:DialogHost>
+                <materialDesign:DialogHost>
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel Width="350" Height="200">
+                            <TextBlock FontSize="18" Margin="10" TextAlignment="Center" FontWeight="Bold">Đổi tên tập tin/thư mục</TextBlock>
+                            <StackPanel Margin="0 10">
+                                <TextBlock Margin="10" FontSize="16" Name="ReNameTitle"></TextBlock>
+                                <TextBox Name="ReNameTextBox" FontSize="18" Margin="10 0" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 5" HorizontalAlignment="Right">
+                                <Button Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0">Đóng</Button>
+                                <Button Name="ReNameAccset" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Margin="10 0" Click="ReNameAccset_Click">Chấp nhận</Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <Button Name="ReName" Content="Đổi tên" Click="ReName_Click" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" />
+                </materialDesign:DialogHost>
+            </StackPanel>
+            <ListView Height="400" Width="960" SelectionChanged="ListView_SelectionChanged" Name="ListView" MouseDoubleClick="ListView_DoubleClick" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="STT" Width="85" DisplayMemberBinding="{Binding STT}"/>
+                        <GridViewColumn Header="Tên thư mục" Width="420" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Kiểu tệp tin" Width="132" DisplayMemberBinding="{Binding Type}"/>
+                        <GridViewColumn Header="Kích thước" Width="128" DisplayMemberBinding="{Binding Size}"/>
+                        <GridViewColumn Header="Ngày tạo" Width="160" DisplayMemberBinding="{Binding Date}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+                <Label Content="Tên file:" FontSize="18" />
+                <Label FontSize="18" Width="670" Margin="15 0" Name="FileNameLabel" />
+                <Label Content="Kiểu file:" FontSize="18" Margin="15 0" />
+                <Label FontSize="18" Width="100"  Name="FileTypeLabel"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
