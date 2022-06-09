@@ -143,13 +143,12 @@ namespace FileExplorerV2
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Type? t = ListView?.SelectedItem?.GetType();
-            System.Reflection.PropertyInfo[]? props = t?.GetProperties();
+            FileView SelectListView = (FileView)ListView.SelectedItem;
             OpenDeleteFile.IsEnabled = true;
             ReName.IsEnabled = true;
-            if (props != null)
+            if (SelectListView != null)
             {
-                currentlySelectedItemName = props[1]?.GetValue(ListView?.SelectedItem).ToString();
+                currentlySelectedItemName = SelectListView.Name;
                 FileAttributes fileAttr = File.GetAttributes(filePath + "\\" + currentlySelectedItemName);
                 if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
                 {
@@ -261,6 +260,7 @@ namespace FileExplorerV2
                     FilePathTextBox.Text = filePath;
                     LoadFileAndDirectories();
                     OpenDeleteFile.IsEnabled = false;
+                    ReName.IsEnabled = false;
                 } 
                 else
                 {
