@@ -123,7 +123,9 @@ namespace FileExplorerV2
             }
             catch (Exception)
             {
-                throw;
+                filePath = ListDevices[0];
+                FilePathTextBox.Text = filePath;
+                LoadFileAndDirectories();
             }
         }
 
@@ -150,7 +152,7 @@ namespace FileExplorerV2
             {
                 currentlySelectedItemName = SelectListView.Name;
                 FileAttributes fileAttr = File.GetAttributes(filePath + "\\" + currentlySelectedItemName);
-                if ((fileAttr & FileAttributes.Directory) == FileAttributes.Directory)
+                if (fileAttr == FileAttributes.Directory)
                 {
                     isFile = false;
                     FilePathTextBox.Text = filePath + "\\" + currentlySelectedItemName;
