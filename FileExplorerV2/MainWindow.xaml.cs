@@ -46,6 +46,7 @@ namespace FileExplorerV2
             filePath = ListDevices[0];
             FilePathTextBox.Text = filePath;
             LayoutListDevices.ItemsSource = ListDevices;
+            ListView.SelectionMode = SelectionMode.Single;
             LoadFileAndDirectories();
         }
         public void LoadFileAndDirectories ()
